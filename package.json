@@ -1,7 +1,8 @@
 {
   "name": "@discord-dashboard/base-theme",
-  "version": "3.1.0",
+  "version": "0.0.0-beta-20240630163739",
   "scripts": {
+    "git:to:main": "git add . && git commit -m 'Automated commit (from package.json)' && git push origin main",
     "tsc:build": "rm -rf dist && tsc"
   },
   "main": "dist/index.js",
