@@ -1,0 +1,22 @@
+{
+  "name": "@discord-dashboard/base-theme",
+  "version": "3.1.0",
+  "scripts": {
+    "tsc:build": "rm -rf dist && tsc"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@fastify/nextjs": "^10.0.1",
+    "autoprefixer": "^10.4.19",
+    "next": "^14.2.4",
+    "postcss": "^8.4.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.4"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "18.3.3"
+  }
+}
