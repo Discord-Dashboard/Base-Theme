@@ -3,21 +3,39 @@
   "version": "0.0.0-beta-20240630163739",
   "scripts": {
     "git:to:main": "git add . && git commit -m 'Automated commit (from package.json)' && git push origin main",
-    "tsc:build": "rm -rf dist && tsc"
+    "tsc:build": "rm -rf dist && tsc",
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@fastify/nextjs": "^10.0.1",
-    "autoprefixer": "^10.4.19",
-    "next": "^14.2.4",
-    "postcss": "^8.4.38",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.4"
+    "@discord-dashboard/core": "^0.0.0-beta-20240630163739",
+    "@discord-dashboard/typings": "^0.0.0-beta-20240630163739",
+    "@fastify/one-line-logger": "^1.2.0",
+    "@fastify/react": "^0.6.0",
+    "@fastify/vite": "^6.0.5",
+    "@headlessui/react": "^2.1.1",
+    "@heroicons/react": "^2.1.4",
+    "fastify": "^4.24.3",
+    "history": "^5.3.0",
+    "minipass": "^7.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "unihead": "^0.0.6",
+    "valtio": "^1.12.0"
   },
-  "license": "MIT",
   "devDependencies": {
-    "@types/react": "18.3.3"
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "postcss-nesting": "^12.0.2",
+    "postcss-preset-env": "^7.7.1",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.0.2"
   }
 }
