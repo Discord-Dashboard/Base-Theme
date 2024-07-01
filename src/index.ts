@@ -3,13 +3,17 @@ import Next from "next"
 import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
 import { Dashboard } from '@discord-dashboard/core';
 
+import { join } from "node:path"
+
+console.log("dir is", join(__dirname, "../"))
+
 export default class BaseTheme implements Theme {
   name = "Base Theme"
 
   async Initialize(dashboard: Dashboard) {
     const fastify = dashboard.fastify;
 
-    const app = Next({ dev: true, port: dashboard.config.port }); // fuck dev atm
+    const app = Next({ dev: true, port: dashboard.config.port, dir: join(__dirname, "../") }); // fuck dev atm
     const handle = app.getRequestHandler();
     await app.prepare();
 
