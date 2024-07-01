@@ -1,36 +1,36 @@
-import Next from "next"
+"use strict";
 
-import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
-import { Dashboard } from '@discord-dashboard/core';
-
-export default class BaseTheme implements Theme {
-  name = "Base Theme"
-
-  async Initialize(dashboard: Dashboard) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _next = _interopRequireDefault(require("next"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+class BaseTheme {
+  name = "Base Theme";
+  async Initialize(dashboard) {
     const fastify = dashboard.fastify;
-
-    const app = Next({ dev: true, port: dashboard.config.port }); // fuck dev atm
+    const app = (0, _next.default)({
+      dev: true,
+      port: dashboard.config.port
+    }); // fuck dev atm
     const handle = app.getRequestHandler();
     await app.prepare();
-
     fastify.get('/_next/*', (req, reply) => {
       return handle(req.raw, reply.raw).then(() => {
         reply.sent = true;
       });
     });
-
     fastify.get('/a', (req, reply) => {
       return app.render(req.raw, reply.raw, '/a', {}).then(() => {
         reply.sent = true;
       });
     });
-
     fastify.get('/b', (req, reply) => {
       return app.render(req.raw, reply.raw, '/b', {}).then(() => {
         reply.sent = true;
       });
     });
-
     fastify.all('/*', (req, reply) => {
       console.log('Capture * called');
       return handle(req.raw, reply.raw).then(() => {
@@ -49,12 +49,11 @@ export default class BaseTheme implements Theme {
     // });
 
     fastify.setErrorHandler((error, req, reply) => {
-      console.log(error.code, error.message)
+      console.log(error.code, error.message);
       return app.render(req.raw, reply.raw, '/error', {}).then(() => {
         reply.sent = true;
       });
-    })
-
+    });
     fastify.setNotFoundHandler(async (request, reply) => {
       console.log('404 hit');
       return app.render404(request.raw, reply.raw).then(() => {
@@ -63,3 +62,4 @@ export default class BaseTheme implements Theme {
     });
   }
 }
+exports.default = BaseTheme;
