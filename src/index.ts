@@ -8,7 +8,7 @@ export default class BaseTheme implements Theme {
 
   async Initialize(dashboard: Dashboard) {
     await dashboard.fastify.register(FastifyVite, {
-      root: resolve(join(__dirname, '../../')),
+      root: resolve(join(__dirname, '../')),
       renderer: '@fastify/react',
     });
 
