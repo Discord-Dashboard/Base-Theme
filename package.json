@@ -3,12 +3,7 @@
   "version": "0.0.0-beta-20240630163739",
   "scripts": {
     "git:to:main": "git add . && git commit -m 'Automated commit (from package.json)' && git push origin main",
-    "tsc:build": "rm -rf dist && tsc",
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "build": "rm -rf dist && tsc && npx babel src --out-dir dist --extensions \\\".js,.jsx,.ts,.tsx\\\""
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,6 +25,12 @@
     "valtio": "^1.12.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/babel__core": "^7",
+    "@types/babel__preset-env": "^7",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
