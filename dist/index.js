@@ -5,14 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _next = _interopRequireDefault(require("next"));
+var _nodePath = require("node:path");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+console.log("dir is", (0, _nodePath.join)(__dirname, "../"));
 class BaseTheme {
   name = "Base Theme";
   async Initialize(dashboard) {
     const fastify = dashboard.fastify;
     const app = (0, _next.default)({
       dev: true,
-      port: dashboard.config.port
+      port: dashboard.config.port,
+      dir: (0, _nodePath.join)(__dirname, "../")
     }); // fuck dev atm
     const handle = app.getRequestHandler();
     await app.prepare();
