@@ -30,8 +30,7 @@
     "noEmit": true
   },
   "include": [
-    "src",
-    ".next/types/**/*.ts"
+    "src" //dont fucking add it it will destroy tsc build and next.js knows it must include it (the env)
   ],
   "exclude": [
     "node_modules"
