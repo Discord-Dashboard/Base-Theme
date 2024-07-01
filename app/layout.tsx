@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
     <head>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+      <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body className="font-inter">{children}</body>
     </html>
