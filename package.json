@@ -7,11 +7,14 @@
   "scripts": {
     "dev": "next dev",
     "git:to:main": "git add . && git commit -m 'Automated commit (from package.json)' && git push origin main",
-    "build": "rm -rf dist && next build && tsc && npx babel src --out-dir dist --extensions \\\".js,.jsx,.ts,.tsx\\\"",
+    "build": "rm -rf dist && tsc && npx babel src --out-dir dist --extensions \\\".js,.jsx,.ts,.tsx\\\" --config-file ./babel.config.pkg.json",
+    "next:build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.1",
+    "@heroicons/react": "^2.1.4",
     "fastify": "^4.28.1",
     "next": "14.2.4",
     "react": "^18",

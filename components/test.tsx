@@ -1,5 +1,3 @@
-
-
 export default function Example() {
   return (
     <div className="relative isolate overflow-hidden bg-white">
@@ -19,7 +17,12 @@ export default function Example() {
             <path d="M.5 200V.5H200" fill="none" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" strokeWidth={0} fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)" />
+        <rect
+          width="100%"
+          height="100%"
+          strokeWidth={0}
+          fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)"
+        />
       </svg>
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
@@ -43,8 +46,9 @@ export default function Example() {
             Deploy to the cloud with confidence
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-            fugiat veniam occaecat fugiat aliqua.
+            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
+            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
+            fugiat aliqua.
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <a
@@ -53,7 +57,10 @@ export default function Example() {
             >
               Get started
             </a>
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               Learn more <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -73,5 +80,5 @@ export default function Example() {
         </div>
       </div>
     </div>
-  )
+  );
 }

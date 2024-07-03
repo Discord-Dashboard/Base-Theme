@@ -1,0 +1,16 @@
+src
+app
+components
+public
+babel.config.pkg.json
+.eslintrc.json
+.gitignore
+.npmignore
+biome.json
+next.config.mjs
+next-env.d.ts
+postcss.config.mjs
+tailwind.config.ts
+tsconfig.json
+tsconfig.tsbuildinfo
+node_modules
