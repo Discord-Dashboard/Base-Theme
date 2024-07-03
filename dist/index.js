@@ -24,11 +24,17 @@ class BaseTheme {
       const data = (await dashboard.database.instance.get(`themeSettings.${this.id}`)) || null;
       return reply.code(200).send(data || _ThemeData.defaultThemeData);
     });
-    fastify.get('/theme', (req, reply) => {
-      return app.render(req.raw, reply.raw, '/theme-management');
+    let components = [];
+    fastify.get('/components', async (request, reply) => {
+      return {
+        components
+      };
     });
-    fastify.get('/dashboard', (req, reply) => {
-      return app.render(req.raw, reply.raw, '/dashboard');
+    fastify.post('/components', async (request, reply) => {
+      components = request.body.components;
+      return {
+        success: true
+      };
     });
     fastify.all('/*', (req, reply) => {
       return handle(req.raw, reply.raw);

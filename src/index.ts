@@ -1,8 +1,10 @@
 import { ThemeData, defaultThemeData } from './utils/ThemeData';
 import { Dashboard } from '@discord-dashboard/core';
 import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
+import { FastifyRequest } from 'fastify';
 import Next from 'next';
 import { join } from 'node:path';
+import { Component } from 'react';
 
 export default class BaseTheme implements Theme {
   name = 'Base Theme';
@@ -27,13 +29,26 @@ export default class BaseTheme implements Theme {
       return reply.code(200).send(data || defaultThemeData);
     });
 
-    fastify.get('/theme', (req, reply) => {
-      return app.render(req.raw, reply.raw, '/theme-management');
+    let components: any[] = [];
+
+    fastify.get('/components', async (request, reply) => {
+      return { components };
     });
 
-    fastify.get('/dashboard', (req, reply) => {
-      return app.render(req.raw, reply.raw, '/dashboard');
-    });
+    fastify.post(
+      '/components',
+      async (
+        request: FastifyRequest<{
+          Body: {
+            components: any[];
+          };
+        }>,
+        reply,
+      ) => {
+        components = request.body.components;
+        return { success: true };
+      },
+    );
 
     fastify.all('/*', (req, reply) => {
       return handle(req.raw, reply.raw);
