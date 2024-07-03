@@ -1,29 +1,17 @@
 'use client';
 
-import { useThemeSettingsContext } from '../../context/ThemeSettingsContext';
+import { useThemeSettingsStore } from '../../state/ThemeStore';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-];
-
 export default function MainHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [themeSettings, _] = useThemeSettingsContext();
-
-  if (themeSettings.loading) {
-    return <h1>Loading...</h1>;
-  }
+  const { themeSettings } = useThemeSettingsStore();
 
   return (
     <header className="bg-white">
-      <a>{JSON.stringify(themeSettings)}</a>
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -49,7 +37,7 @@ export default function MainHeader() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
+          {themeSettings.data.navigation.map((item) => (
             <a
               key={item.name}
               href={item.href}
@@ -93,7 +81,7 @@ export default function MainHeader() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
+                {themeSettings.data.navigation.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}

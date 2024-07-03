@@ -1,3 +1,4 @@
+import { ThemeData, defaultThemeData } from './utils/ThemeData';
 import { Dashboard } from '@discord-dashboard/core';
 import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
 import Next from 'next';
@@ -5,6 +6,7 @@ import { join } from 'node:path';
 
 export default class BaseTheme implements Theme {
   name = 'Base Theme';
+  id = 'base';
 
   async Initialize(dashboard: Dashboard) {
     const fastify = dashboard.fastify;
@@ -17,8 +19,20 @@ export default class BaseTheme implements Theme {
     const handle = app.getRequestHandler();
     await app.prepare();
 
-    fastify.get('/a', (req, reply) => {
-      throw new Error('fuck me.');
+    fastify.get('/api/theme', async (req, reply) => {
+      const data =
+        ((await dashboard.database.instance.get(
+          `themeSettings.${this.id}`,
+        )) as ThemeData) || null;
+      return reply.code(200).send(data || defaultThemeData);
+    });
+
+    fastify.get('/theme', (req, reply) => {
+      return app.render(req.raw, reply.raw, '/theme-management');
+    });
+
+    fastify.get('/dashboard', (req, reply) => {
+      return app.render(req.raw, reply.raw, '/dashboard');
     });
 
     fastify.all('/*', (req, reply) => {

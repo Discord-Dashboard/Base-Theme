@@ -1,3 +1,6 @@
+import MainFooter from '../components/footers/MainFooter';
+import MainHeader from '../components/headers/MainHeader';
+import { WrapThemeStore } from '../state/ThemeStore';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -19,7 +22,13 @@ export default function RootLayout({
         />
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
-      <body className="font-inter h-full">{children}</body>
+      <body className="font-inter h-full">
+        <WrapThemeStore>
+          <MainHeader />
+          {children}
+          <MainFooter />
+        </WrapThemeStore>
+      </body>
     </html>
   );
 }

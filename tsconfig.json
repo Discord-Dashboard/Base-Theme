@@ -17,6 +17,7 @@
     "incremental": true,
     "outDir": "dist",
     "rootDir": "src",
+    "declaration": true,
     "plugins": [
       {
         "name": "next"
