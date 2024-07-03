@@ -22,7 +22,7 @@ export default function RootLayout({
         />
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
-      <body className="font-inter h-full">
+      <body className="font-inter h-full flex flex-col min-h-screen">
         <WrapThemeStore>
           <MainHeader />
           {children}
