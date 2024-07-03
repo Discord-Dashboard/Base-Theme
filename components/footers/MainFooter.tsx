@@ -6,7 +6,7 @@ export default function MainFooter() {
   const { themeSettings } = useThemeSettingsStore();
   return (
     <footer className="bg-white">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 pt-20 sm:pt-24 lg:px-8">
         {themeSettings.data.footer.main.length > 0 && (
           <nav
             className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
