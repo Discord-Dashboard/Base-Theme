@@ -1,6 +1,10 @@
+import MainFooter from '../components/footers/MainFooter';
+import MainHeader from '../components/navs/MainHeader';
+
 export default function Example() {
   return (
     <>
+      <MainHeader />
       <main className="grid place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div className="text-center">
           <p className="text-base font-semibold text-indigo-600">404</p>
@@ -23,6 +27,7 @@ export default function Example() {
           </div>
         </div>
       </main>
+      <MainFooter />
     </>
   );
 }
