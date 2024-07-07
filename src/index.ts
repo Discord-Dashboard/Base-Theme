@@ -4,11 +4,12 @@ import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
 import { FastifyRequest } from 'fastify';
 import Next from 'next';
 import { join } from 'node:path';
-import { Component } from 'react';
 
 export default class BaseTheme implements Theme {
   name = 'Base Theme';
   id = 'base';
+
+  docs_url = 'https://example.com';
 
   async Initialize(dashboard: Dashboard) {
     const fastify = dashboard.fastify;
@@ -52,10 +53,6 @@ export default class BaseTheme implements Theme {
 
     fastify.all('/*', (req, reply) => {
       return handle(req.raw, reply.raw);
-    });
-
-    fastify.setErrorHandler(async (error, req, reply) => {
-      return await app.render(req.raw, reply.raw, '/error');
     });
 
     fastify.setNotFoundHandler(async (request, reply) => {

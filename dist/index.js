@@ -11,6 +11,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 class BaseTheme {
   name = 'Base Theme';
   id = 'base';
+  docs_url = 'https://example.com';
   async Initialize(dashboard) {
     const fastify = dashboard.fastify;
     const app = (0, _next.default)({
@@ -38,9 +39,6 @@ class BaseTheme {
     });
     fastify.all('/*', (req, reply) => {
       return handle(req.raw, reply.raw);
-    });
-    fastify.setErrorHandler(async (error, req, reply) => {
-      return await app.render(req.raw, reply.raw, '/error');
     });
     fastify.setNotFoundHandler(async (request, reply) => {
       return app.render404(request.raw, reply.raw).then(() => {
