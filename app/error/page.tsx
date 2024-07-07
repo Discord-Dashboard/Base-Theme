@@ -1,9 +1,13 @@
 'use client';
 
+import MainFooter from '../../components/footers/MainFooter';
+import MainHeader from '../../components/navs/MainHeader';
+
 function ErrorPage({ searchParams: { code, code_text, message } }) {
   return (
     <>
-      <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <MainHeader />
+      <main className="grid place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div className="text-center">
           <p className="text-base font-semibold text-indigo-600">
             {code || 505}
@@ -27,6 +31,7 @@ function ErrorPage({ searchParams: { code, code_text, message } }) {
           </div>
         </div>
       </main>
+      <MainFooter />
     </>
   );
 }
