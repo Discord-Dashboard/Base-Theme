@@ -1,8 +1,11 @@
 import { ThemeData, defaultThemeData } from './utils/ThemeData';
 import { Dashboard } from '@discord-dashboard/core';
 import Theme from '@discord-dashboard/typings/dist/Dashboard/Theme';
+import FastifyExpress from '@fastify/express';
+import express from 'express';
 import { FastifyRequest } from 'fastify';
 import Next from 'next';
+import DiscordProvider from 'next-auth/providers/discord';
 import { join } from 'node:path';
 
 export default class BaseTheme implements Theme {
@@ -21,6 +24,8 @@ export default class BaseTheme implements Theme {
     });
     const handle = app.getRequestHandler();
     await app.prepare();
+
+    await fastify.register(FastifyExpress);
 
     fastify.get('/api/theme', async (req, reply) => {
       const data =
@@ -51,8 +56,8 @@ export default class BaseTheme implements Theme {
       },
     );
 
-    fastify.all('/*', (req, reply) => {
-      return handle(req.raw, reply.raw);
+    fastify.all('*', (request, reply) => {
+      return handle(request.raw, reply.raw);
     });
 
     fastify.setNotFoundHandler(async (request, reply) => {

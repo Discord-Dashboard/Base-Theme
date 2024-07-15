@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+console.log(process.env);
+
 export default function SetUp() {
   return (
     <div className="bg-white">
