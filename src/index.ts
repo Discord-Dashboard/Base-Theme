@@ -5,7 +5,6 @@ import FastifyExpress from '@fastify/express';
 import express from 'express';
 import { FastifyRequest } from 'fastify';
 import Next from 'next';
-import DiscordProvider from 'next-auth/providers/discord';
 import { join } from 'node:path';
 
 export default class BaseTheme implements Theme {
@@ -34,27 +33,6 @@ export default class BaseTheme implements Theme {
         )) as ThemeData) || null;
       return reply.code(200).send(data || defaultThemeData);
     });
-
-    let components: any[] = [];
-
-    fastify.get('/components', async (request, reply) => {
-      return { components };
-    });
-
-    fastify.post(
-      '/components',
-      async (
-        request: FastifyRequest<{
-          Body: {
-            components: any[];
-          };
-        }>,
-        reply,
-      ) => {
-        components = request.body.components;
-        return { success: true };
-      },
-    );
 
     fastify.all('*', (request, reply) => {
       return handle(request.raw, reply.raw);

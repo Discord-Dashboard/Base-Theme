@@ -27,18 +27,6 @@ class BaseTheme {
       const data = (await dashboard.database.instance.get(`themeSettings.${this.id}`)) || null;
       return reply.code(200).send(data || _ThemeData.defaultThemeData);
     });
-    let components = [];
-    fastify.get('/components', async (request, reply) => {
-      return {
-        components
-      };
-    });
-    fastify.post('/components', async (request, reply) => {
-      components = request.body.components;
-      return {
-        success: true
-      };
-    });
     fastify.all('*', (request, reply) => {
       return handle(request.raw, reply.raw);
     });

@@ -1,7 +1,7 @@
 import MainFooter from '../components/footers/MainFooter';
 import MainHeader from '../components/navs/MainHeader';
-import NextAuthSessionProvider from '../state/SessionProvider';
 import { WrapThemeStore } from '../state/ThemeStore';
+import { WrapUserStore } from '../state/UserStore';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -24,9 +24,9 @@ export default function RootLayout({
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body className="font-inter h-full flex flex-col min-h-screen">
-        <NextAuthSessionProvider>
-          <WrapThemeStore>{children}</WrapThemeStore>
-        </NextAuthSessionProvider>
+        <WrapThemeStore>
+          <WrapUserStore>{children}</WrapUserStore>
+        </WrapThemeStore>
       </body>
     </html>
   );

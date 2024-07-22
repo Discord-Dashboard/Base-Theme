@@ -1,6 +1,7 @@
 'use client';
 
 import { useThemeSettingsStore } from '../../state/ThemeStore';
+import { useUserData } from '../../state/UserStore';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ export default function MainHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const { themeSettings } = useThemeSettingsStore();
+  const { userSession } = useUserData();
 
   return (
     <header className="bg-white">
@@ -49,8 +51,23 @@ export default function MainHeader() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
+          <a
+            href={
+              !userSession.loading && userSession.user
+                ? '/dashboard/user'
+                : '/api/auth'
+            }
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            {userSession.loading ? (
+              ''
+            ) : userSession.user ? (
+              <a>Hello, {userSession.user.global_name}</a>
+            ) : (
+              <>
+                Log in <span aria-hidden="true">&rarr;</span>
+              </>
+            )}
           </a>
         </div>
       </nav>
@@ -94,10 +111,22 @@ export default function MainHeader() {
               </div>
               <div className="py-6">
                 <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  href={
+                    !userSession.loading && userSession.user
+                      ? '/dashboard/user'
+                      : '/api/auth'
+                  }
+                  className="text-sm font-semibold leading-6 text-gray-900"
                 >
-                  Log in
+                  {userSession.loading ? (
+                    ''
+                  ) : userSession.user ? (
+                    <a>Hello, {userSession.user.global_name}</a>
+                  ) : (
+                    <>
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </>
+                  )}
                 </a>
               </div>
             </div>
