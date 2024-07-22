@@ -235,7 +235,7 @@ export default function ThemeSettingsNav() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
-            Dashboard
+            Theme Settings
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
