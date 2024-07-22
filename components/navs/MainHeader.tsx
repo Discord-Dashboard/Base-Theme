@@ -21,12 +21,8 @@ export default function MainHeader() {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+            <span className="sr-only">Discord-Dashboard</span>
+            <img className="h-12 w-auto" src="/vector-logo.png" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -64,10 +60,9 @@ export default function MainHeader() {
             ) : userSession.user ? (
               <a>Hello, {userSession.user.global_name}</a>
             ) : (
-              <>
-                Log in <span aria-hidden="true">&rarr;</span>
-              </>
-            )}
+              <>Log in</>
+            )}{' '}
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
@@ -123,10 +118,9 @@ export default function MainHeader() {
                   ) : userSession.user ? (
                     <a>Hello, {userSession.user.global_name}</a>
                   ) : (
-                    <>
-                      Log in <span aria-hidden="true">&rarr;</span>
-                    </>
-                  )}
+                    <>Log in</>
+                  )}{' '}
+                  <span aria-hidden="true">&rarr;</span>
                 </a>
               </div>
             </div>

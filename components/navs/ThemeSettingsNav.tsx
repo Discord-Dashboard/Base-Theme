@@ -154,9 +154,9 @@ export default function ThemeSettingsNav() {
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
             <div className="flex h-16 shrink-0 items-center">
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company"
+                className="h-12 w-auto"
+                src="/vector-logo.png"
+                alt="Discord-Dashboard"
               />
             </div>
             <nav className="flex flex-1 flex-col">
@@ -241,7 +241,11 @@ export default function ThemeSettingsNav() {
             <span className="sr-only">Your profile</span>
             <img
               className="h-8 w-8 rounded-full bg-gray-50"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              src={
+                userSession.user!.avatar
+                  ? `https://cdn.discordapp.com/avatars/${userSession.user!.id}/${userSession.user!.avatar}.png?size=128`
+                  : `https://cdn.discordapp.com/embed/avatars/0.png?size=128`
+              }
               alt=""
             />
           </a>
