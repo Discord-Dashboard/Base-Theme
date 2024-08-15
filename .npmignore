@@ -1,0 +1,6 @@
+src
+client/app
+client/next-env.d.ts
+node_modules
+.gitignore
+tsconfig.json
