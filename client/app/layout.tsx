@@ -15,7 +15,7 @@ export default function RootLayout({
             <head>
                 <script src="https://cdn.tailwindcss.com"></script>
             </head>
-            <body className={poppins.className}>
+            <body className={poppins.className + ' h-full'}>
                 <SessionProvider>{children}</SessionProvider>
             </body>
         </html>
