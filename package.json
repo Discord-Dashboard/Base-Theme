@@ -10,6 +10,8 @@
   "dependencies": {
     "@discord-dashboard/react": "3.0.0",
     "@discord-dashboard/typings": "3.0.0",
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "fastify": "^4.28.1",
     "jotai": "^2.9.3",
     "next": "^14.2.5",
