@@ -10,8 +10,11 @@ import Next from 'next';
 import path from 'node:path';
 import * as url from 'node:url';
 
+import PackageInfo from '../package.json';
+
 class BaseTheme implements Theme {
     public name: string = 'BaseTheme';
+    public version: string = PackageInfo.version;
 
     public async inject(
         fastify: FastifyInstance,
@@ -29,7 +32,11 @@ class BaseTheme implements Theme {
 
         const next_handle = next_app.getRequestHandler();
 
+        // @ts-ignore - schema.hide not declared in typings
         fastify.all('*', {
+            schema: {
+                hide: true,
+            },
             onRequest: async (
                 request: FastifyRequest,
                 reply: FastifyReply,
