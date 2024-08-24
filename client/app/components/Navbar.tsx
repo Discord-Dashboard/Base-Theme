@@ -50,7 +50,7 @@ export default function Navbar() {
         <body class="h-full">
         ```
       */}
-            <div className="min-h-full">
+            <div>
                 <Disclosure
                     as="nav"
                     className="border-b border-gray-200 bg-white"
