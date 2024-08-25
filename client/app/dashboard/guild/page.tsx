@@ -7,8 +7,8 @@ import Navbar from "../../components/Navbar";
 const GuildsPage: React.FC = () => {
     return (
         <>
-        <Navbar />
         <GuildsListManager>
+            <Navbar />
             <GuildsList />
         </GuildsListManager>
         </>
