@@ -20,30 +20,34 @@ const GuildsOptions: React.FC = () => {
     console.log('OptionType: ' + typeof options.data);
 
     return (
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8">
+        <div>
             {optionsData.length > 0 ? (
                 optionsData.map((category) => (
-                    <li
-                        key={category.id}
-                        className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
-                    >
-                        <div className="flex flex-1 flex-col p-8">
-                            <h1>{category.id}</h1>
+                    <div className="flex flex-1 flex-col p-8">
+                        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                            {category.id} category
+                        </h1>
+                        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8">
                             {category.options.map((option) => (
-                                <div key={option.id}>
-                                    <FormTypes
-                                        formType={option.type}
-                                        option={option}
-                                    />
-                                </div>
+                                <li
+                                    key={option.id}
+                                    className="col-span-1 flex flex-col divide-y divide-gray-500 rounded-lg bg-white text-center shadow"
+                                >
+                                    <div key={option.id}>
+                                        <FormTypes
+                                            formType={option.type}
+                                            option={option}
+                                        />
+                                    </div>
+                                </li>
                             ))}
-                        </div>
-                    </li>
+                        </ul>
+                    </div>
                 ))
             ) : (
-                <li className="col-span-1 text-center">No data available</li>
+                <p className="col-span-1 text-center">No data available</p>
             )}
-        </ul>
+        </div>
     );
 };
 
