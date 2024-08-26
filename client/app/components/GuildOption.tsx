@@ -13,13 +13,15 @@ import SaveModal from './SaveModal';
 import { useUpdate } from '../../context/UpdateContext';
 import { Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { useGuildCateoriesManager } from '@discord-dashboard/react/dist/GuildCategoriesManager';
 
 const GuildsOptions: React.FC<{ id: string }> = ({ id }) => {
     const options = useGuildOptionsManager();
     const category = useGuildCateoriesManager();
     const [isOpen, setIsOpen] = useState(false);
-    //const [options, setOptions] = useState(useGuildOptionsManager());
+    const [isSavedOpen, setIsSavedOpen] = useState(false);
+    const [errorModal, setErrorModal] = useState({ isOpen: false, error: '' });
 
     const [safeData, setSafeData] = useState<TGuildOptionsUpdate>({
         id: id,
@@ -33,13 +35,40 @@ const GuildsOptions: React.FC<{ id: string }> = ({ id }) => {
     const optionsData: TGuildData[] = options.data || [];
 
     // console.log('Options: ' + JSON.stringify(optionsData));
-    console.log('isOpen: ' + isOpen);
+    //console.log('isOpen: ' + isOpen);
 
     const saveData = async (data: TGuildOptionsUpdate) => {
-        console.log('Data: ' + JSON.stringify(data));
+        //console.log('Data: ' + JSON.stringify(data));
         const updateData: TGuildOptionsUpdate[] = [];
         updateData.push(data);
-        options.updateData(updateData);
+        const update = await options.updateData(updateData);
+
+        // Check if the update object is empty, indicating success
+        if (Object.keys(update).length === 0) {
+            // Success: Close the modal
+            setIsOpen(false);
+
+            // Show the saved confirmation
+            setIsSavedOpen(true);
+
+            // Automatically close the saved confirmation after 5 seconds
+            setTimeout(() => {
+                setIsSavedOpen(false);
+            }, 5000);
+        } else {
+            // Failure: Get the first key and handle the error
+            const firstKey = Object.keys(update)[0];
+            const errorMessage = update[firstKey]?.[0]?.error;
+
+            setIsOpen(false);
+
+            // Show an error modal or handle the error accordingly
+            setErrorModal({
+                isOpen: true,
+                error: errorMessage || 'An unknown error occurred.', // Provide a fallback message
+            });
+        }
+
         setSafeData({
             id: id,
             options: [],
@@ -52,8 +81,7 @@ const GuildsOptions: React.FC<{ id: string }> = ({ id }) => {
 
     return (
         <>
-            {/* Global notification live region, render this permanently at the end of the document */}
-
+            {/*Save Modal*/}
             <div
                 aria-live="assertive"
                 className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
@@ -102,6 +130,108 @@ const GuildsOptions: React.FC<{ id: string }> = ({ id }) => {
                                             type="button"
                                             onClick={() => {
                                                 setIsOpen(false);
+                                            }}
+                                            className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        >
+                                            <span className="sr-only">
+                                                Close
+                                            </span>
+                                            <XMarkIcon
+                                                aria-hidden="true"
+                                                className="h-5 w-5"
+                                            />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Transition>
+                </div>
+            </div>
+
+            {/*Confirm Modal*/}
+            <div
+                aria-live="assertive"
+                className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+            >
+                <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+                    {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
+                    <Transition show={isSavedOpen}>
+                        <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition data-[closed]:data-[enter]:translate-y-2 data-[enter]:transform data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-100 data-[enter]:ease-out data-[leave]:ease-in data-[closed]:data-[enter]:sm:translate-x-2 data-[closed]:data-[enter]:sm:translate-y-0">
+                            <div className="p-4">
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0">
+                                        <CheckCircleIcon
+                                            aria-hidden="true"
+                                            className="h-6 w-6 text-green-400"
+                                        />
+                                    </div>
+                                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            Successfully saved!
+                                        </p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Anyone with a link can now view this
+                                            file.
+                                        </p>
+                                    </div>
+                                    <div className="ml-4 flex flex-shrink-0">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setIsSavedOpen(false);
+                                            }}
+                                            className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        >
+                                            <span className="sr-only">
+                                                Close
+                                            </span>
+                                            <XMarkIcon
+                                                aria-hidden="true"
+                                                className="h-5 w-5"
+                                            />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Transition>
+                </div>
+            </div>
+
+            {/*Error Modal*/}
+            <div
+                aria-live="assertive"
+                className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+            >
+                <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+                    {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
+                    <Transition show={errorModal.isOpen}>
+                        <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition data-[closed]:data-[enter]:translate-y-2 data-[enter]:transform data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-100 data-[enter]:ease-out data-[leave]:ease-in data-[closed]:data-[enter]:sm:translate-x-2 data-[closed]:data-[enter]:sm:translate-y-0">
+                            <div className="p-4">
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0">
+                                        <XCircleIcon
+                                            aria-hidden="true"
+                                            className="h-6 w-6 text-red-400"
+                                        />
+                                    </div>
+                                    <div className="ml-3 w-0 flex-1 pt-0.5">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            Error while saving!
+                                        </p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            {errorModal.error}
+                                        </p>
+                                    </div>
+                                    <div className="ml-4 flex flex-shrink-0">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setErrorModal({
+                                                    isOpen: false,
+                                                    error: '',
+                                                });
                                             }}
                                             className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         >
