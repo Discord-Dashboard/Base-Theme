@@ -9,7 +9,7 @@ import {
 } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useSession } from '../../context/SessionContext';
-import Loading from "./Loading";
+import Loading from './Loading';
 
 const user = {
     name: 'Tom Cook',
@@ -36,9 +36,9 @@ function classNames(...classes) {
 export default function Navbar() {
     const { sessionData } = useSession();
 
-    if (!sessionData) return <Loading />
+    if (!sessionData) return <Loading />;
 
-    console.log('SessionData: ' + JSON.stringify(sessionData));
+    //console.log('SessionData: ' + JSON.stringify(sessionData));
 
     return (
         <>
